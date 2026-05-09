@@ -1,8 +1,34 @@
+from urllib.parse import urlparse, parse_qs
 from django.db.models import Count
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
 from .models import Movie, Theater, Seat, Booking
 
+def get_youtube_embed_url(url):
+
+    try:
+
+        parsed_url = urlparse(url)
+
+        if 'youtube.com' in parsed_url.netloc:
+
+            video_id = parse_qs(
+                parsed_url.query
+            ).get('v')
+
+            if video_id:
+
+                return f"https://www.youtube.com/embed/{video_id[0]}"
+
+        elif 'youtu.be' in parsed_url.netloc:
+
+            video_id = parsed_url.path.strip('/')
+
+            return f"https://www.youtube.com/embed/{video_id}"
+
+    except:
+
+        return None
 
 def movie_list(request):
 
@@ -90,6 +116,13 @@ def theater_list(request, movie_id):
         Movie,
         id=movie_id
     )
+    embed_url = None
+
+    if movie.trailer_url:
+
+       embed_url = get_youtube_embed_url(
+        movie.trailer_url
+    )
 
     theaters = Theater.objects.filter(
         movie=movie
@@ -102,7 +135,8 @@ def theater_list(request, movie_id):
 
         {
             'movie': movie,
-            'theaters': theaters
+            'theaters': theaters,
+            'embed_url': embed_url
         }
 
     )

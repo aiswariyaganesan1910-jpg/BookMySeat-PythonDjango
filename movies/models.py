@@ -36,6 +36,8 @@ class Movie(models.Model):
 
     cast = models.CharField(max_length=200)
 
+    trailer_url = models.URLField(blank=True, null=True)
+
     genre = models.CharField(
         max_length=50,
         choices=GENRE_CHOICES,
