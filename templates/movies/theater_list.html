@@ -1,0 +1,94 @@
+{% extends 'users/basic.html' %}
+
+{% block content %}
+
+<div class="container mt-5 mb-5">
+
+    <h1 class="text-center mb-5">
+        Movie - {{ movie.movie_name }}
+    </h1>
+
+    {% if theaters %}
+
+        {% for theater in theaters %}
+
+        <div class="card shadow-sm mb-4 p-4">
+
+            <div class="d-flex justify-content-between align-items-center">
+
+                <div>
+
+                    <h3>
+
+                        {{ theater.name }} Theater
+
+                    </h3>
+
+                    <p class="text-muted">
+
+                        {{ theater.show_time }}
+
+                    </p>
+
+                </div>
+
+                <div>
+
+                    <span class="btn btn-outline-primary btn-sm">
+                        2D
+                    </span>
+
+                    <span class="btn btn-outline-primary btn-sm">
+                        3D
+                    </span>
+
+                    <span class="btn btn-outline-primary btn-sm">
+                        IMAX 3D
+                    </span>
+
+                    <span class="btn btn-outline-primary btn-sm">
+                        1 Tickets
+                    </span>
+
+                </div>
+
+            </div>
+
+            <p class="text-muted mt-3">
+
+                📱 M-Ticket &nbsp;&nbsp;
+
+                🍟 Food & Beverage &nbsp;&nbsp;
+
+                🅿️ Parking Available &nbsp;&nbsp;
+
+                ♿ Wheelchair Access &nbsp;&nbsp;
+
+                🎬 3D Show Available
+
+            </p>
+
+            <a
+                href="{% url 'book_seats' theater.id %}"
+                class="btn btn-success btn-lg btn-block mt-3"
+            >
+                Book Now
+            </a>
+
+        </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="alert alert-warning">
+
+            Sorry, no theaters are available for this movie at the moment.
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

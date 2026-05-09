@@ -1,0 +1,274 @@
+{% extends "users/basic.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <h1 class="text-center mb-4">Movies</h1>
+
+    <!-- Search -->
+
+    <div class="row justify-content-center mb-5">
+
+        <div class="col-md-7">
+
+            <form method="GET">
+
+    <div class="row mb-5">
+
+        <div class="col-md-4">
+
+            <input
+                type="text"
+                name="q"
+                class="form-control"
+                placeholder="Search movies..."
+            >
+
+        </div>
+
+        <div class="col-md-3">
+
+        <select
+              name="genre"
+              class="form-control"
+              multiple
+              size="1"
+        >
+
+                <option value="">
+                    All Genres
+                </option>
+
+                {% for value, label in genres %}
+
+                    <option value="{{ value }}">
+
+    {{ label }}
+
+    (
+
+    {% for item in genre_counts %}
+
+        {% if item.genre == value %}
+
+            {{ item.total }}
+
+        {% endif %}
+
+    {% endfor %}
+
+    )
+
+</option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+        <div class="col-md-2">
+
+    <select
+        name="language"
+        class="form-control"
+        multiple
+        size="1"
+    >
+
+        <option value="">
+            All Languages
+        </option>
+
+        {% for value, label in languages %}
+
+            <option value="{{ value }}">
+
+    {{ label }}
+
+    (
+
+    {% for item in language_counts %}
+
+        {% if item.language == value %}
+
+            {{ item.total }}
+
+        {% endif %}
+
+    {% endfor %}
+
+    )
+
+</option>
+
+        {% endfor %}
+
+    </select>
+
+</div>
+
+<div class="col-md-2">
+
+    <select
+        name="sort"
+        class="form-control"
+    >
+
+        <option value="">
+            Sort By
+        </option>
+
+        <option value="rating">
+            Rating High to Low
+        </option>
+
+        <option value="a-z">
+            A-Z
+        </option>
+
+        <option value="z-a">
+            Z-A
+        </option>
+
+    </select>
+
+</div>
+
+        <div class="col-md-2">
+
+            <button
+             type="submit"
+             class="btn btn-primary w-100"
+             style="height:45px;"
+            >
+
+               Filter
+
+            </button>
+
+         </div>
+
+    </div>
+
+</form>
+
+        </div>
+
+    </div>
+
+    <!-- Movies -->
+
+    <div class="row">
+
+        {% for movie in movies %}
+
+        <div class="col-md-3 mb-4">
+
+            <div class="card shadow h-100">
+
+                <img
+                    src="{{ movie.movie_image.url }}"
+                    class="card-img-top"
+                    style="height:350px; object-fit:cover;"
+                >
+
+                <div class="card-body">
+
+                    <h3>{{ movie.movie_name }}</h3>
+                    <p class="text-muted">
+
+    {{ movie.movie_description }}
+
+</p>
+
+                    <p>⭐ {{ movie.rating }}</p>
+
+                    <p>
+
+                        🎭 Cast:
+                        {{ movie.cast }}
+
+                    </p>
+
+                    <a
+                        href="{% url 'theater_list' movie.id %}"
+                        class="btn btn-primary w-100"
+                    >
+
+                        View Theaters
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+        {% empty %}
+
+<div class="col-12 text-center">
+
+    <h3 class="text-danger">
+
+        No movies found for selected filters.
+
+    </h3>
+
+</div>
+
+        {% endfor %}
+        
+
+    </div>
+
+</div>
+<div class="d-flex justify-content-center mt-5">
+
+    {% if movies.has_previous %}
+
+        <a
+            href="?page={{ movies.previous_page_number }}"
+            class="btn btn-primary mx-2"
+        >
+
+            Previous
+
+        </a>
+
+    {% endif %}
+
+    <span class="btn btn-light mx-2">
+
+        Page {{ movies.number }}
+        of
+        {{ movies.paginator.num_pages }}
+
+    </span>
+
+    {% if movies.has_next %}
+
+        <a
+            href="?page={{ movies.next_page_number }}"
+            class="btn btn-primary mx-2"
+        >
+
+            Next
+
+        </a>
+
+    {% endif %}
+
+</div>
+<style>
+
+select[multiple] {
+
+    height: 50px;
+
+}
+
+</style>
+
+{% endblock %}

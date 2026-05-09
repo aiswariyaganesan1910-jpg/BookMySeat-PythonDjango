@@ -1,0 +1,256 @@
+{% extends "users/basic.html" %}
+
+{% block content %}
+
+<!-- Carousel -->
+
+<div id="carouselExampleIndicators"
+     class="carousel slide"
+     data-ride="carousel">
+
+    <ol class="carousel-indicators">
+
+        <li data-target="#carouselExampleIndicators"
+            data-slide-to="0"
+            class="active"></li>
+
+        <li data-target="#carouselExampleIndicators"
+            data-slide-to="1"></li>
+
+        <li data-target="#carouselExampleIndicators"
+            data-slide-to="2"></li>
+
+    </ol>
+
+    <div class="carousel-inner">
+
+        <div class="carousel-item active">
+
+            <img
+                class="d-block w-100"
+                src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=1200&auto=format&fit=crop"
+                style="height:450px; object-fit:cover;"
+            >
+
+        </div>
+
+        <div class="carousel-item">
+
+            <img
+                class="d-block w-100"
+                src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=1200&auto=format&fit=crop"
+                style="height:450px; object-fit:cover;"
+            >
+
+        </div>
+
+        <div class="carousel-item">
+
+            <img
+                class="d-block w-100"
+                src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=1200&auto=format&fit=crop"
+                style="height:450px; object-fit:cover;"
+            >
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Recommended Movies -->
+
+<div class="container mt-5">
+
+    <h1 class="mb-4">
+
+        Recommended Movies
+
+    </h1>
+
+    <div class="row">
+
+        {% for movie in movies %}
+
+        <div class="col-md-3 mb-4">
+
+            <div class="card shadow h-100">
+
+                <img
+                    src="{{ movie.movie_image.url }}"
+                    class="card-img-top"
+                    style="height:350px; object-fit:cover;"
+                >
+
+                <div class="card-body">
+
+                    <h4>
+
+                        {{ movie.movie_name }}
+
+                    </h4>
+
+                    <p>
+
+                        🎭 Cast:
+                        {{ movie.cast }}
+
+                    </p>
+
+                    <a
+                        href="{% url 'theater_list' movie.id %}"
+                        class="btn btn-primary w-100"
+                    >
+
+                        View Theaters
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+
+<!-- Premiere Section -->
+
+<div class="container mt-5">
+
+    <h2 class="mb-4">
+
+        Premiere
+
+    </h2>
+
+    <div class="row">
+
+        <div class="col-md-3">
+
+            <img
+                src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?q=80&w=1200&auto=format&fit=crop"
+                class="img-fluid rounded"
+                style="height:220px; width:100%; object-fit:cover;"
+            >
+
+        </div>
+
+        <div class="col-md-3">
+
+            <img
+                src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=1200&auto=format&fit=crop"
+                class="img-fluid rounded"
+                style="height:220px; width:100%; object-fit:cover;"
+            >
+
+        </div>
+
+        <div class="col-md-3">
+
+            <img
+                src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=1200&auto=format&fit=crop"
+                class="img-fluid rounded"
+                style="height:220px; width:100%; object-fit:cover;"
+            >
+
+        </div>
+
+        <div class="col-md-3">
+
+            <img
+                src="https://images.unsplash.com/photo-1578849278619-e73505e9610f?q=80&w=1200&auto=format&fit=crop"
+                class="img-fluid rounded"
+                style="height:220px; width:100%; object-fit:cover;"
+            >
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Music Section -->
+
+<div class="container mt-5 mb-5">
+
+    <h2 class="mb-4">
+
+        Music Concerts
+
+    </h2>
+
+    <div class="row">
+
+        <div class="col-md-2">
+
+            <img
+                src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?q=80&w=1200&auto=format&fit=crop"
+                class="img-fluid rounded"
+                style="height:220px; width:100%; object-fit:cover;"
+            >
+
+        </div>
+
+        <div class="col-md-2">
+
+            <img
+                src="https://images.unsplash.com/photo-1507874457470-272b3c8d8ee2?q=80&w=1200&auto=format&fit=crop"
+                class="img-fluid rounded"
+                style="height:220px; width:100%; object-fit:cover;"
+            >
+
+        </div>
+
+        <div class="col-md-2">
+
+            <img
+                src="https://images.unsplash.com/photo-1498038432885-c6f3f1b912ee?q=80&w=1200&auto=format&fit=crop"
+                class="img-fluid rounded"
+                style="height:220px; width:100%; object-fit:cover;"
+            >
+
+        </div>
+
+        <div class="col-md-2">
+
+            <img
+                src="https://images.unsplash.com/photo-1506157786151-b8491531f063?q=80&w=1200&auto=format&fit=crop"
+                class="img-fluid rounded"
+                style="height:220px; width:100%; object-fit:cover;"
+            >
+
+        </div>
+
+        <div class="col-md-2">
+
+            <img
+                src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?q=80&w=1200&auto=format&fit=crop"
+                class="img-fluid rounded"
+                style="height:220px; width:100%; object-fit:cover;"
+            >
+
+        </div>
+
+        <div class="col-md-2">
+
+            <img
+                src="https://images.unsplash.com/photo-1501612780327-45045538702b?q=80&w=1200&auto=format&fit=crop"
+                class="img-fluid rounded"
+                style="height:220px; width:100%; object-fit:cover;"
+            >
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
