@@ -1,8 +1,19 @@
+from django.core.mail import EmailMultiAlternatives
+
+from django.template.loader import render_to_string
+
+import threading
+
+import logging
+
+import random
 from urllib.parse import urlparse, parse_qs
 from django.db.models import Count
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
 from .models import Movie, Theater, Seat, Booking
+
+logger = logging.getLogger(__name__)
 
 def get_youtube_embed_url(url):
 
@@ -29,6 +40,59 @@ def get_youtube_embed_url(url):
     except:
 
         return None
+
+def send_booking_email(user, movie, theater, seats):
+
+    try:
+
+        payment_id = f"PAY{random.randint(100000,999999)}"
+
+        html_content = render_to_string(
+
+            'emails/booking_confirmation.html',
+
+            {
+
+                'movie': movie,
+
+                'theater': theater,
+
+                'seats': seats,
+
+                'payment_id': payment_id
+
+            }
+
+        )
+
+        email = EmailMultiAlternatives(
+
+            subject='Booking Confirmation - BookMySeat',
+
+            body='Your booking has been confirmed.',
+
+            from_email=None,
+
+            to=[user.email]
+
+        )
+
+        email.attach_alternative(
+
+            html_content,
+
+            "text/html"
+
+        )
+
+        email.send()
+
+    except Exception as e:
+
+        logger.error(
+
+            f"Email sending failed: {e}"
+        )
 
 def movie_list(request):
 
@@ -152,21 +216,51 @@ def book_seats(request, theater_id):
 
         selected_seats = request.POST.getlist('seats')
 
+        seat_numbers = []
+
         for seat_id in selected_seats:
 
             seat = Seat.objects.get(id=seat_id)
+
+            if seat.is_booked:
+
+                continue
 
             Booking.objects.create(
 
                 user=request.user,
 
                 movie=theater.movie,
-                
+
                 theater=theater,
 
                 seat=seat
 
             )
+
+            seat.is_booked = True
+
+            seat.save()
+
+            seat_numbers.append(seat.seat_number)
+
+        threading.Thread(
+
+            target=send_booking_email,
+
+            args=(
+
+                request.user,
+
+                theater.movie,
+
+                theater,
+
+                ", ".join(seat_numbers)
+
+            )
+
+        ).start()
 
         return redirect('profile')
 

@@ -58,6 +58,22 @@ def register_view(request):
 @login_required
 def profile_view(request):
 
+    if request.method == 'POST':
+
+        username = request.POST.get('username')
+
+        email = request.POST.get('email')
+
+        if username:
+
+            request.user.username = username
+
+        if email:
+
+            request.user.email = email
+
+        request.user.save()
+
     bookings = Booking.objects.filter(
         user=request.user
     )

@@ -78,8 +78,9 @@
 
                             <input
                                 type="text"
+                                name="username"
+                                value="{{ request.user.username }}"
                                 class="form-control"
-                                value="{{ user.username }}"
                             >
 
                         </div>
@@ -94,8 +95,9 @@
 
                             <input
                                 type="email"
+                                name="email"
+                                value="{{ request.user.email }}"
                                 class="form-control"
-                                value="{{ user.email }}"
                             >
 
                         </div>
