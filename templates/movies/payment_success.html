@@ -1,0 +1,42 @@
+{% extends 'users/basic.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="card shadow p-5 text-center">
+
+        <h1 class="text-success">
+
+            Payment Successful 🎉
+
+        </h1>
+
+        <p class="mt-4">
+
+            Your booking has been confirmed.
+
+        </p>
+
+        <h4>
+
+            Payment ID:
+
+            {{ payment_id }}
+
+        </h4>
+
+        <a
+            href="/profile/"
+            class="btn btn-primary mt-4"
+        >
+
+            Go To Profile
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

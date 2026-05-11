@@ -1,3 +1,9 @@
+import razorpay
+from django.conf import settings
+from django.utils import timezone
+
+from datetime import timedelta
+from django.db import transaction
 from django.core.mail import EmailMultiAlternatives
 
 from django.template.loader import render_to_string
@@ -12,6 +18,17 @@ from django.db.models import Count
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
 from .models import Movie, Theater, Seat, Booking
+client = razorpay.Client(
+
+    auth=(
+
+        settings.RAZORPAY_KEY_ID,
+
+        settings.RAZORPAY_KEY_SECRET
+
+    )
+
+)
 
 logger = logging.getLogger(__name__)
 
@@ -203,28 +220,51 @@ def theater_list(request, movie_id):
             'embed_url': embed_url
         }
 
+
     )
-
-
-def book_seats(request, theater_id):
+def payment_page(request, theater_id):
 
     theater = Theater.objects.get(id=theater_id)
 
-    seats = Seat.objects.filter(theater=theater)
+    selected_seats = request.GET.getlist('seats')
+
+    seat_objects = Seat.objects.filter(
+        id__in=selected_seats
+    )
+
+    total_amount = len(selected_seats) * 200
+
+    payment = client.order.create({
+
+    "amount": total_amount * 100,
+
+    "currency": "INR",
+
+    "payment_capture": "1"
+
+})
 
     if request.method == "POST":
 
-        selected_seats = request.POST.getlist('seats')
+        payment_status = request.POST.get(
+            'payment_status'
+        )
 
-        seat_numbers = []
+        payment_id = f"PAY{random.randint(100000,999999)}"
+
+        if payment_status == "Failed":
+
+            return render(
+
+                request,
+
+                'movies/payment_failed.html'
+
+            )
 
         for seat_id in selected_seats:
 
             seat = Seat.objects.get(id=seat_id)
-
-            if seat.is_booked:
-
-                continue
 
             Booking.objects.create(
 
@@ -234,7 +274,11 @@ def book_seats(request, theater_id):
 
                 theater=theater,
 
-                seat=seat
+                seat=seat,
+
+                payment_id=payment_id,
+
+                payment_status=payment_status
 
             )
 
@@ -242,7 +286,141 @@ def book_seats(request, theater_id):
 
             seat.save()
 
-            seat_numbers.append(seat.seat_number)
+        return redirect(
+
+            f"/movies/payment-success/?payment_id={payment_id}"
+
+        )
+
+    return render(
+
+        request,
+
+        'movies/payment.html',
+
+        {
+
+            'theater': theater,
+
+            'selected_seats': seat_objects,
+
+            'total_amount': total_amount,
+            
+            'payment': payment,
+
+            'razorpay_key': settings.RAZORPAY_KEY_ID
+
+        }
+
+    )
+def payment_success(request):
+
+    payment_id = request.GET.get('payment_id')
+
+    return render(
+
+        request,
+
+        'movies/payment_success.html',
+
+        {
+
+            'payment_id': payment_id
+
+        }
+
+    )
+
+
+def book_seats(request, theater_id):
+
+    theater = Theater.objects.get(id=theater_id)
+
+    expired_time = timezone.now() - timedelta(minutes=2)
+
+    expired_seats = Seat.objects.filter(
+
+        is_reserved=True,
+
+        is_booked=False,
+
+        reserved_at__lt=expired_time
+
+    )
+
+    expired_seats.update(
+
+        is_reserved=False,
+
+        reserved_at=None
+
+    )
+
+    seats = Seat.objects.filter(theater=theater)
+
+    if request.method == "POST":
+
+        selected_seats = request.POST.getlist('seats')
+
+        seat_numbers = []
+
+        try:
+
+            with transaction.atomic():
+
+                for seat_id in selected_seats:
+
+                    seat = Seat.objects.select_for_update().get(
+                        id=seat_id
+                    )
+
+                    if seat.is_booked:
+
+                        return render(
+
+                            request,
+
+                            'movies/seat_selection.html',
+
+                            {
+
+                                'theater': theater,
+
+                                'seats': seats,
+
+                                'error': f"Seat {seat.seat_number} is already booked."
+
+                            }
+
+                        )
+
+                    
+
+                    
+
+                    seat_numbers.append(
+                        seat.seat_number
+                    )
+
+        except Exception:
+
+            return render(
+
+                request,
+
+                'movies/seat_selection.html',
+
+                {
+
+                    'theater': theater,
+
+                    'seats': seats,
+
+                    'error': "Booking failed. Please try again."
+
+                }
+
+            )
 
         threading.Thread(
 
@@ -262,7 +440,17 @@ def book_seats(request, theater_id):
 
         ).start()
 
-        return redirect('profile')
+        seat_query = "&".join(
+
+            [f"seats={seat}" for seat in selected_seats]
+
+        )
+
+        return redirect(
+
+            f"/movies/payment/{theater.id}/?{seat_query}"
+
+        )
 
     return render(
 

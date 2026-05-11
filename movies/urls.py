@@ -16,5 +16,23 @@ urlpatterns = [
         views.book_seats,
         name='book_seats'
     ),
+    path(
+
+    'payment/<int:theater_id>/',
+
+    views.payment_page,
+
+    name='payment_page'
+
+    ),
+    path(
+
+    'payment-success/',
+
+    views.payment_success,
+
+    name='payment_success'
+
+),
 
 ]

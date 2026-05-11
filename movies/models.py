@@ -71,6 +71,9 @@ class Theater(models.Model):
         return f"{self.name} - {self.movie.movie_name}"
 
 
+from django.contrib.auth.models import User
+
+
 class Seat(models.Model):
 
     theater = models.ForeignKey(
@@ -78,27 +81,72 @@ class Seat(models.Model):
         on_delete=models.CASCADE
     )
 
-    seat_number = models.CharField(max_length=10)
+    seat_number = models.CharField(
+        max_length=10
+    )
 
-    is_booked = models.BooleanField(default=False)
+    is_booked = models.BooleanField(
+        default=False
+    )
+
+    is_reserved = models.BooleanField(
+        default=False
+    )
+
+    reserved_at = models.DateTimeField(
+        blank=True,
+        null=True
+    )
 
     def __str__(self):
+
         return self.seat_number
-    
-from django.contrib.auth.models import User
 
 
 class Booking(models.Model):
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE
+    )
 
-    seat = models.ForeignKey(Seat, on_delete=models.CASCADE)
+    seat = models.ForeignKey(
+        Seat,
+        on_delete=models.CASCADE
+    )
 
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    movie = models.ForeignKey(
+        Movie,
+        on_delete=models.CASCADE
+    )
 
-    theater = models.ForeignKey(Theater, on_delete=models.CASCADE)
+    theater = models.ForeignKey(
+        Theater,
+        on_delete=models.CASCADE
+    )
 
-    booked_at = models.DateTimeField(auto_now_add=True)
+    payment_id = models.CharField(
+
+        max_length=100,
+
+        blank=True,
+
+        null=True
+
+    )
+
+    payment_status = models.CharField(
+
+        max_length=20,
+
+        default='Pending'
+
+    )
+
+    booked_at = models.DateTimeField(
+        auto_now_add=True
+    )
 
     def __str__(self):
+
         return f'Booking by {self.user.username}'

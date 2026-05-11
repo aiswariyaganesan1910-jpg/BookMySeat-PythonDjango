@@ -1,6 +1,16 @@
 {% extends 'users/basic.html' %}
 
+
 {% block content %}
+{% if error %}
+
+<div class="alert alert-danger">
+
+    {{ error }}
+
+</div>
+
+{% endif %}
 
 <div class="container mt-5 mb-5">
 

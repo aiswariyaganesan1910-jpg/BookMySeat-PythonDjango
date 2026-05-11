@@ -140,3 +140,8 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'yourrealmail@gmail.com'
 
 EMAIL_HOST_PASSWORD = 'your_real_app_password'
+
+RAZORPAY_KEY_ID = "test_key"
+
+RAZORPAY_KEY_SECRET = "test_secret"
+
