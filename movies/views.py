@@ -332,24 +332,18 @@ def payment_page(request, theater_id):
             flat=True
 
         )
+        send_booking_email(
 
-        threading.Thread(
+    request.user,
 
-            target=send_booking_email,
+    theater.movie,
 
-            args=(
+    theater,
 
-                request.user,
+    ", ".join(seat_numbers)
 
-                theater.movie,
+)
 
-                theater,
-
-                ", ".join(seat_numbers)
-
-            )
-
-        ).start()
 
         return redirect(
 
