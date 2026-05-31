@@ -1,0 +1,236 @@
+{% extends 'users/basic.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <h1 class="mb-5 text-center">
+
+        Admin Analytics Dashboard
+
+    </h1>
+
+    <div class="row g-4">
+
+        <div class="col-md-3">
+
+            <div class="card shadow p-4 text-center">
+
+                <h4>Total Movies</h4>
+
+                <h2>{{ total_movies }}</h2>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card shadow p-4 text-center">
+
+                <h4>Total Bookings</h4>
+
+                <h2>{{ total_bookings }}</h2>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card shadow p-4 text-center">
+
+                <h4>Total Users</h4>
+
+                <h2>{{ total_users }}</h2>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card shadow p-4 text-center">
+
+                <h4>Total Revenue</h4>
+
+                <h2>₹{{ total_revenue }}</h2>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="card shadow p-4 mt-5">
+
+    <h3>Revenue Analytics</h3>
+
+    <hr>
+
+    <h5>Daily Revenue: ₹{{ daily_revenue }}</h5>
+
+    <h5>Weekly Revenue: ₹{{ weekly_revenue }}</h5>
+
+    <h5>Monthly Revenue: ₹{{ monthly_revenue }}</h5>
+
+</div>
+ <div class="card shadow p-5 mt-5">
+
+    <h3 class="mb-4">
+
+        Busiest Theaters
+
+    </h3>
+
+    <table class="table">
+
+        <thead>
+
+            <tr>
+
+                <th>Theater</th>
+
+                <th>Booked Seats</th>
+
+                <th>Total Seats</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for theater in busiest_theaters %}
+
+            <tr>
+
+                <td>{{ theater.name }}</td>
+
+                <td>{{ theater.booked_seats }}</td>
+
+                <td>{{ theater.total_seats }}</td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+<div class="card shadow p-5 mt-5">
+
+    <h3 class="mb-4">
+
+        Peak Booking Hours
+
+    </h3>
+
+    <table class="table">
+
+        <thead>
+
+            <tr>
+
+                <th>Hour</th>
+
+                <th>Total Bookings</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for booking in peak_booking_hours %}
+
+            <tr>
+
+                <td>{{ booking.hour }}:00</td>
+
+                <td>{{ booking.total_bookings }}</td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+<div class="card shadow p-5 mt-5">
+
+    <h3 class="mb-4">
+
+        Cancellation Analytics
+
+    </h3>
+
+    <hr>
+
+    <h5>
+
+        Cancelled Bookings:
+
+        {{ cancelled_bookings }}
+
+    </h5>
+
+    <h5>
+
+        Cancellation Rate:
+
+        {{ cancellation_rate }}%
+
+    </h5>
+
+</div>
+
+    <div class="card shadow p-5 mt-5">
+
+        <h3 class="mb-4">
+
+            Most Popular Movies
+
+        </h3>
+        
+
+        <table class="table">
+
+            <thead>
+
+                <tr>
+
+                    <th>Movie</th>
+
+                    <th>Total Bookings</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for movie in popular_movies %}
+
+                <tr>
+
+                    <td>{{ movie.movie_name }}</td>
+
+                    <td>{{ movie.booking_count }}</td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

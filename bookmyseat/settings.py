@@ -115,9 +115,11 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
+STATIC_URL = '/static/'
 
-STATIC_URL = 'static/'
-
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 LOGIN_URL = 'login'
 
 LOGIN_REDIRECT_URL = 'profile'
@@ -137,11 +139,24 @@ EMAIL_PORT = 587
 
 EMAIL_USE_TLS = True
 
-EMAIL_HOST_USER = 'yourrealmail@gmail.com'
+EMAIL_HOST_USER = 'your_email'
 
-EMAIL_HOST_PASSWORD = 'your_real_app_password'
+EMAIL_HOST_PASSWORD = 'your_email_password'
 
-RAZORPAY_KEY_ID = "test_key"
+RAZORPAY_KEY_ID = "your_razorpay_key_id"
 
-RAZORPAY_KEY_SECRET = "test_secret"
+RAZORPAY_KEY_SECRET = "your_razorpay_key_secret"
 
+RAZORPAY_WEBHOOK_SECRET = "your_webhook_secret"
+
+CACHES = {
+
+    'default': {
+
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+
+        'LOCATION': 'bookmyseat-cache'
+
+    }
+
+}

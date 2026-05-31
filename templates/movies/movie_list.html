@@ -166,7 +166,7 @@
 
         <div class="col-md-3 mb-4">
 
-            <div class="card shadow h-100">
+            <div class="card movie-card shadow h-100">
 
                 <img
                     src="{{ movie.movie_image.url }}"
@@ -238,14 +238,13 @@
         </a>
 
     {% endif %}
+<span class="page-box mx-2">
 
-    <span class="btn btn-light mx-2">
+    Page {{ movies.number }}
+    of
+    {{ movies.paginator.num_pages }}
 
-        Page {{ movies.number }}
-        of
-        {{ movies.paginator.num_pages }}
-
-    </span>
+</span>
 
     {% if movies.has_next %}
 

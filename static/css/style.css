@@ -1,0 +1,368 @@
+/* ===== GLOBAL ===== */
+
+body{
+    background:
+    radial-gradient(circle at top right,
+    rgba(255,0,128,0.12),
+    transparent 30%),
+    linear-gradient(
+    135deg,
+    #141414,
+    #1f1f1f,
+    #2a002f
+    );
+
+    color:#f5f5f5;
+    font-family:'Poppins',sans-serif;
+    min-height:100vh;
+}
+
+
+/* ===== NAVBAR ===== */
+
+.navbar{
+
+    background:rgba(15,15,15,.90)!important;
+
+    border-bottom:1px solid rgba(255,255,255,.06);
+
+    backdrop-filter:blur(12px);
+
+}
+
+.navbar-brand{
+
+    color:white!important;
+
+    font-size:30px;
+
+    font-weight:700;
+
+}
+
+
+/* ===== HEADINGS ===== */
+
+h1,h2,h3,h4,h5{
+
+    color:white;
+
+}
+
+
+/* ===== GENERAL TEXT ===== */
+
+p,
+span,
+.text-muted{
+
+    color:#cfcfcf!important;
+
+}
+
+
+/* ===== CARDS ===== */
+
+.card{
+
+    background:rgba(35,35,35,.90)!important;
+
+    border-radius:20px!important;
+
+    border:1px solid rgba(255,255,255,.06)!important;
+
+    overflow:hidden!important;
+
+    box-shadow:
+    0 8px 25px rgba(0,0,0,.35);
+
+    margin-bottom:25px;
+
+}
+
+
+/* NO MOVING HOVER */
+
+/* .card:hover{
+
+transform:none !important;
+
+} */
+
+.movie-card:hover{
+
+    box-shadow:
+    0 0 25px rgba(255,0,140,.25);
+
+}
+
+/* ===== BUTTONS ===== */
+
+.btn-primary,
+.btn-success,
+.book-btn{
+
+background:
+linear-gradient(
+135deg,
+#ff0080,
+#8c00ff
+)!important;
+
+border:none!important;
+
+color:white!important;
+
+border-radius:12px!important;
+
+padding:10px 24px;
+
+box-shadow:
+0 0 15px rgba(255,0,140,.25);
+
+}
+
+.btn-primary:hover,
+.btn-success:hover{
+
+box-shadow:
+0 0 22px rgba(255,0,140,.40);
+
+}
+
+
+/* ===== FORM INPUTS ===== */
+
+input,
+textarea,
+select{
+
+    background:rgba(255,255,255,.08)!important;
+
+    color:white!important;
+
+    border:1px solid rgba(255,255,255,.08)!important;
+
+    border-radius:12px!important;
+
+}
+
+
+input:focus,
+textarea:focus,
+select:focus{
+
+    box-shadow:none!important;
+
+    border-color:#ff00aa!important;
+
+}
+
+
+/* ===== PROFILE HEADER ===== */
+
+.card-header{
+
+    background:
+    linear-gradient(
+    135deg,
+    #d6006f,
+    #8c00ff
+    )!important;
+
+    color:white!important;
+
+}
+
+
+/* ===== SUCCESS PAGE ===== */
+
+.success-container{
+
+    background:rgba(45,45,45,.90);
+
+    border-radius:25px;
+
+    padding:50px;
+
+    text-align:center;
+
+}
+
+
+/* ===== SEATS ===== */
+
+.seat{
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:10px;
+
+    background:#444;
+
+    color:white;
+
+}
+
+
+.seat.selected{
+
+    background:
+    linear-gradient(
+    135deg,
+    #ff0080,
+    #8c00ff
+    )!important;
+
+}
+
+
+.seat.booked{
+
+    background:#666!important;
+
+}
+
+
+/* ===== SCREEN ===== */
+
+.cinema-screen{
+
+    background:
+    rgba(255,255,255,.08);
+
+    color:#e6e6e6;
+
+    height:70px;
+
+    border-radius:12px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:18px;
+
+    font-weight:600;
+
+    margin-bottom:20px;
+
+
+}
+
+
+/* ===== DROPDOWN ===== */
+
+option{
+
+    background:#1f1f1f;
+
+    color:white;
+
+}
+
+
+/* ===== PAGINATION ===== */
+
+.page-link,
+input[value*="Page"]{
+
+background:rgba(255,255,255,.08)!important;
+
+color:#f5f5f5!important;
+
+border:1px solid rgba(255,255,255,.1)!important;
+
+}
+
+
+/* ===== FOOTER ===== */
+
+footer{
+
+    background:#111;
+
+    padding:35px;
+
+    margin-top:50px;
+
+}
+/* Movie cards only */
+
+.col-md-3 .card:hover,
+.col-lg-3 .card:hover{
+
+    box-shadow:
+    0 0 25px rgba(255,0,140,.25);
+
+}
+/* Page number fix */
+
+input[value*="Page"]{
+
+background:rgba(255,255,255,.10)!important;
+
+color:#ffffff!important;
+
+-webkit-text-fill-color:#ffffff!important;
+
+opacity:1!important;
+
+font-weight:600!important;
+
+}
+.page-box{
+
+background:rgba(255,255,255,.08);
+
+padding:10px 25px;
+
+border-radius:12px;
+
+color:white;
+
+border:1px solid rgba(255,255,255,.08);
+
+}
+/* Disable hover ONLY for profile + booking cards */
+
+.profile-container .card:hover,
+.profile-page .card:hover,
+.booking-card:hover {
+
+    transform:none !important;
+
+    box-shadow:
+    0 8px 25px rgba(0,0,0,.35) !important;
+
+}
+
+
+/* Enable hover ONLY for movie cards */
+
+.movie-card{
+
+transition:all .3s ease;
+
+}
+
+.movie-card:hover{
+
+transform:translateY(-5px);
+
+box-shadow:
+0 12px 30px rgba(0,0,0,.35),
+0 0 25px rgba(255,0,140,.25);
+
+}
+#bookBtn:disabled {
+
+    opacity: 0.5;
+
+    cursor: not-allowed;
+
+}

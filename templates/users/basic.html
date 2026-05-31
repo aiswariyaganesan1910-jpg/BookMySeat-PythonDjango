@@ -1,12 +1,18 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
+   
     <meta charset="UTF-8">
 
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <title>
         {% block title %}BookMySeat{% endblock %}
@@ -78,18 +84,42 @@
 
     <div class="container">
 
-        <a class="navbar-brand" href="/">
+      <a class="navbar-brand d-flex align-items-center"
+   href="/"
+   style="text-decoration:none;">
 
-            <img
-                src="https://cdn-icons-png.flaticon.com/512/4221/4221419.png"
-                width="40"
-                height="40"
-                class="mr-2"
-            >
+    <!-- ICON -->
 
-            BookMySeat
+    <img
+    src="https://cdn-icons-png.flaticon.com/512/4221/4221419.png"
+    alt="Logo"
+    width="50"
+    height="50"
+    style="
+        margin-right:12px;
+        filter:
+        drop-shadow(0 0 4px #ff1493)
+        drop-shadow(0 0 8px rgba(255,20,147,0.4));
+    "
+   
+>
 
-        </a>
+    <!-- TEXT -->
+
+    <span style="
+        font-size:40px;
+        font-weight:800;
+        letter-spacing:0px;
+        font-family:'Poppins',sans-serif;
+    ">
+
+        <!-- BOOK -->
+
+       <span style="color:white;text-shadow:0 0 4px rgba(255,255,255,0.35);">Book</span><span style="color:transparent;-webkit-text-stroke:2px #ff1493;text-shadow:0 0 5px #ff1493,0 0 10px rgba(255,20,147,0.8);">My</span><span style="color:white;text-shadow:0 0 4px rgba(255,255,255,0.35);">Seat</span>
+    </span>
+
+</a>
+
 
         <button
             class="navbar-toggler"

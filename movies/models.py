@@ -149,4 +149,39 @@ class Booking(models.Model):
 
     def __str__(self):
 
-        return f'Booking by {self.user.username}'
+     return (
+        f"{self.user.username} | "
+        f"{self.movie.movie_name} | "
+        f"Seat {self.seat.seat_number}"
+    )
+class ProcessedWebhook(models.Model):
+
+     event_id = models.CharField(
+        max_length=255,
+        unique=True
+    )
+
+     processed_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+def __str__(self):
+
+        return self.event_id
+class Meta:
+
+    indexes = [
+
+        models.Index(fields=['booked_at']),
+
+        models.Index(fields=['payment_status']),
+
+        models.Index(fields=['movie']),
+
+        models.Index(fields=['theater']),
+
+        models.Index(fields=['movie', 'theater']),
+
+        models.Index(fields=['payment_status', 'booked_at']),
+
+    ]

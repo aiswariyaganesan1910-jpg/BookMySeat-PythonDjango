@@ -34,5 +34,33 @@ urlpatterns = [
     name='payment_success'
 
 ),
+   path(
+
+    'admin-dashboard/',
+
+    views.admin_dashboard,
+
+    name='admin_dashboard'
+
+),
+path(
+
+    'analytics-api/',
+
+    views.analytics_api,
+
+    name='analytics_api'
+
+),
+
+path(
+
+    'payment-webhook/',
+
+    views.payment_webhook,
+
+    name='payment_webhook'
+
+),
 
 ]
