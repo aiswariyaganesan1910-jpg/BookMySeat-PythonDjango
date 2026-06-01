@@ -334,17 +334,15 @@ def payment_page(request, theater_id):
             flat=True
 
         )
-        send_booking_email(
-
-    request.user,
-
-    theater.movie,
-
-    theater,
-
-    ", ".join(seat_numbers)
-
-)
+        try:
+         send_booking_email(
+            request.user,
+            theater.movie,
+            theater,
+            ", ".join(seat_numbers)
+    )
+        except Exception as e:
+           print("EMAIL ERROR:", e)
 
 
         return redirect(
