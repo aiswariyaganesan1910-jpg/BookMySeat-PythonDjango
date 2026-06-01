@@ -142,36 +142,32 @@ EMAIL_PORT = 587
 
 EMAIL_USE_TLS = True
 
-# EMAIL_HOST_USER = os.getenv(
-#     "EMAIL_HOST_USER",
-#     "your_email"
-# )
+EMAIL_HOST_USER = os.getenv(
+    "EMAIL_HOST_USER",
+    "your_email"
+)
 
-# EMAIL_HOST_PASSWORD = os.getenv(
-#     "EMAIL_HOST_PASSWORD",
-#     "your_email_password"
-# )
+EMAIL_HOST_PASSWORD = os.getenv(
+    "EMAIL_HOST_PASSWORD",
+    "your_email_password"
+)
 
-# RAZORPAY_KEY_ID = os.getenv(
-#     "RAZORPAY_KEY_ID",
-#     "your_razorpay_key_id"
-# )
+RAZORPAY_KEY_ID = os.getenv(
+    "RAZORPAY_KEY_ID",
+    "your_razorpay_key_id"
+)
 
-# RAZORPAY_KEY_SECRET = os.getenv(
-#     "RAZORPAY_KEY_SECRET",
-#     "your_razorpay_key_secret"
-# )
+RAZORPAY_KEY_SECRET = os.getenv(
+    "RAZORPAY_KEY_SECRET",
+    "your_razorpay_key_secret"
+)
 
-# RAZORPAY_WEBHOOK_SECRET = os.getenv(
-#     "RAZORPAY_WEBHOOK_SECRET",
-#     "your_webhook_secret"
-# )
+RAZORPAY_WEBHOOK_SECRET = os.getenv(
+    "RAZORPAY_WEBHOOK_SECRET",
+    "your_webhook_secret"
+)
 
-EMAIL_HOST_USER = "bookmyseat.project@gmail.com"
-EMAIL_HOST_PASSWORD = "pcqj zkhy ysjf cnxl"
-RAZORPAY_KEY_ID = "rzp_test_So4tADvkQh0YQ6"
-RAZORPAY_KEY_SECRET = "ld5QxpflLGMBJezmFd6ets3C"
-RAZORPAY_WEBHOOK_SECRET = "test_webhook_secret"
+
 CACHES = {
 
     'default': {
