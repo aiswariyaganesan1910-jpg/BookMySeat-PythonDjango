@@ -76,6 +76,7 @@ def get_youtube_embed_url(url):
         return None
 
 def send_booking_email(user, movie, theater, seats):
+
     print("EMAIL FUNCTION CALLED")
     print(user.email)
 
@@ -84,59 +85,36 @@ def send_booking_email(user, movie, theater, seats):
         payment_id = f"PAY{random.randint(100000,999999)}"
 
         html_content = render_to_string(
-
             'emails/booking_confirmation.html',
-
             {
-
                 'movie': movie,
-
                 'theater': theater,
-
                 'seats': seats,
-
                 'payment_id': payment_id
-
             }
-
         )
 
         email = EmailMultiAlternatives(
-
             subject='Booking Confirmation - BookMySeat',
-
             body='Your booking has been confirmed.',
-
             from_email=None,
-
             to=[user.email]
-
         )
 
         email.attach_alternative(
-
             html_content,
-
             "text/html"
-
         )
 
         try:
-
             email.send()
+            print("EMAIL SENT SUCCESSFULLY")
 
-        except Exception:
-
-            logger.warning(
-
-                "Retrying email send..."
-
-            )
-
-            email.send()
+        except Exception as e:
+            print("EMAIL SEND FAILED:", repr(e))
 
     except Exception as e:
-        print("EMAIL SEND FAILED:", repr(e))
+        print("BOOKING EMAIL FUNCTION ERROR:", repr(e))
 
 def movie_list(request):
 
