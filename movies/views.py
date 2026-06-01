@@ -109,6 +109,7 @@ def send_booking_email(user, movie, theater, seats):
         )
 
         try:
+            print("VERSION TEST 12345")
             print("ABOUT TO SEND EMAIL")
 
             result=email.send(fail_silently=False)
