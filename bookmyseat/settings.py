@@ -151,6 +151,10 @@ EMAIL_HOST_PASSWORD = os.getenv(
     "EMAIL_HOST_PASSWORD",
     "your_email_password"
 )
+print("EMAIL_HOST_USER =", EMAIL_HOST_USER)
+print("EMAIL_PASSWORD_LENGTH =", len(EMAIL_HOST_PASSWORD))
+print("EMAIL SETTINGS LOADED")
+
 
 RAZORPAY_KEY_ID = os.getenv(
     "RAZORPAY_KEY_ID",
