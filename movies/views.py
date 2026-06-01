@@ -76,6 +76,8 @@ def get_youtube_embed_url(url):
         return None
 
 def send_booking_email(user, movie, theater, seats):
+    print("EMAIL FUNCTION CALLED")
+    print(user.email)
 
     try:
 
