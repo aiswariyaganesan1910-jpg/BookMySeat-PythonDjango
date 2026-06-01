@@ -308,16 +308,17 @@ def payment_page(request, theater_id):
             flat=True
 
         )
-        try:
-         send_booking_email(
-            request.user,
-            theater.movie,
-            theater,
-            ", ".join(seat_numbers)
-    )
-        except Exception as e:
-           print("EMAIL ERROR:", e)
-
+        threading.Thread(
+            target=send_booking_email,
+            args=(
+                request.user,
+                theater.movie,
+                theater,
+                ", ".join(seat_numbers)
+            )
+        ).start()
+        
+      
 
         return redirect(
 
