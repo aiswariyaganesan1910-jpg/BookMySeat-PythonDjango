@@ -107,7 +107,9 @@ def send_booking_email(user, movie, theater, seats):
         )
 
         try:
-            email.send()
+            print("ABOUT TO SEND EMAIL")
+
+            email.send(fail_silently=False)
             print("EMAIL SENT SUCCESSFULLY")
 
         except Exception as e:
