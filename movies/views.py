@@ -334,17 +334,17 @@ def payment_page(request, theater_id):
             flat=True
 
         )
-#         send_booking_email(
+        send_booking_email(
 
-#     request.user,
+    request.user,
 
-#     theater.movie,
+    theater.movie,
 
-#     theater,
+    theater,
 
-#     ", ".join(seat_numbers)
+    ", ".join(seat_numbers)
 
-# )
+)
 
 
         return redirect(
