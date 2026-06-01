@@ -1,3 +1,5 @@
+
+
 from django.contrib import messages
 
 from razorpay.errors import SignatureVerificationError
@@ -109,7 +111,8 @@ def send_booking_email(user, movie, theater, seats):
         try:
             print("ABOUT TO SEND EMAIL")
 
-            email.send(fail_silently=False)
+            result=email.send(fail_silently=False)
+            print("EMAIL SEND RESULT =", result)
             print("EMAIL SENT SUCCESSFULLY")
 
         except Exception as e:
