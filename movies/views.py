@@ -136,11 +136,7 @@ def send_booking_email(user, movie, theater, seats):
             email.send()
 
     except Exception as e:
-
-        logger.error(
-
-            f"Email sending failed: {e}"
-        )
+        print("EMAIL SEND FAILED:", repr(e))
 
 def movie_list(request):
 
