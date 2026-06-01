@@ -97,7 +97,7 @@ def send_booking_email(user, movie, theater, seats):
         email = EmailMultiAlternatives(
             subject='Booking Confirmation - BookMySeat',
             body='Your booking has been confirmed.',
-            from_email=None,
+            from_email= settings.EMAIL_HOST_USER,
             to=[user.email]
         )
 
