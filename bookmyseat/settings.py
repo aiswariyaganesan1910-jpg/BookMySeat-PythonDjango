@@ -152,7 +152,7 @@ EMAIL_HOST_PASSWORD = os.getenv(
     "your_email_password"
 )
 DEFAULT_FROM_EMAIL = "bookmyseat.project@gmail.com"
-EMAIL_TIMEOUT = 10
+EMAIL_TIMEOUT = 30
 # print("EMAIL_HOST =", EMAIL_HOST)
 # print("EMAIL_PORT =", EMAIL_PORT)
 # print("EMAIL_HOST_USER =", EMAIL_HOST_USER)
