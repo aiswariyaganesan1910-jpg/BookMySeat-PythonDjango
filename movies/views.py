@@ -10,7 +10,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.models import User
 from django.db.models import Count, Sum
 import razorpay
-
+from django.contrib.auth.decorators import login_required
 from django.core.cache import cache
 from django.conf import settings
 from django.utils import timezone
@@ -99,7 +99,7 @@ def send_booking_email(user, movie, theater, seats):
         email = EmailMultiAlternatives(
             subject='Booking Confirmation - BookMySeat',
             body='Your booking has been confirmed.',
-            from_email= settings.EMAIL_HOST_USER,
+            from_email = settings.DEFAULT_FROM_EMAIL,
             to=[user.email]
         )
 
@@ -518,7 +518,7 @@ def payment_success(request):
 
     )
 
-
+@login_required
 def book_seats(request, theater_id):
 
     theater = Theater.objects.get(id=theater_id)
