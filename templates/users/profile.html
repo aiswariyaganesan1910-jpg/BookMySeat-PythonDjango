@@ -87,26 +87,42 @@
 
                         <div class="mb-3">
 
-                            <label class="form-label">
+    <label class="form-label">
 
-                                Email
+        Email
 
-                            </label>
+    </label>
 
-                            <input
-                                type="email"
-                                name="email"
-                                value="{{ request.user.email }}"
-                                class="form-control"
-                            >
+    <input
+        type="email"
+        name="email"
+        value="{{ request.user.email }}"
+        class="form-control"
+        placeholder="Enter your email address (required for booking confirmations)"
+        required
+    >
 
-                        </div>
+   {% if not request.user.email %}
 
-                        <button class="btn btn-primary">
+<small class="text-danger">
 
-                            Update Profile
+    Email is required to receive booking confirmation emails.
 
-                        </button>
+</small>
+
+<p class="text-warning mt-3">
+
+    ⚠️ Please update your email address before booking tickets to receive confirmation emails.
+
+</p>
+
+  {% endif %}
+
+                        <div class="mt-3">
+    <button class="btn btn-primary">
+        Update Profile
+    </button>
+</div>
 
                     </form>
 
