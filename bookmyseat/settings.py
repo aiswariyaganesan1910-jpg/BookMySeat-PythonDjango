@@ -151,13 +151,17 @@ EMAIL_HOST_PASSWORD = os.getenv(
     "EMAIL_HOST_PASSWORD",
     "your_email_password"
 )
+BREVO_API_KEY = os.getenv(
+    "BREVO_API_KEY",
+    ""
+)
 DEFAULT_FROM_EMAIL = "bookmyseat.project@gmail.com"
 EMAIL_TIMEOUT = 60
-# print("EMAIL_HOST =", EMAIL_HOST)
-# print("EMAIL_PORT =", EMAIL_PORT)
-# print("EMAIL_HOST_USER =", EMAIL_HOST_USER)
-# print("EMAIL_PASSWORD_LENGTH =", len(EMAIL_HOST_PASSWORD))
-# print("EMAIL SETTINGS LOADED")
+print("EMAIL_HOST =", EMAIL_HOST)
+print("EMAIL_PORT =", EMAIL_PORT)
+print("EMAIL_HOST_USER =", EMAIL_HOST_USER)
+print("EMAIL_PASSWORD_LENGTH =", len(EMAIL_HOST_PASSWORD))
+print("EMAIL SETTINGS LOADED")
 
 
 RAZORPAY_KEY_ID = os.getenv(

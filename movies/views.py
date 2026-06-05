@@ -1,5 +1,7 @@
 
 
+
+
 from django.contrib import messages
 
 from razorpay.errors import SignatureVerificationError
@@ -30,6 +32,7 @@ from urllib.parse import urlparse, parse_qs
 from django.db.models import Count
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
+import requests
 from .models import (
     Movie,
     Theater,
@@ -80,7 +83,6 @@ def get_youtube_embed_url(url):
 def send_booking_email(user, movie, theater, seats):
 
     print("EMAIL FUNCTION CALLED")
-    print(user.email)
 
     try:
 
@@ -96,31 +98,43 @@ def send_booking_email(user, movie, theater, seats):
             }
         )
 
-        email = EmailMultiAlternatives(
-            subject='Booking Confirmation - BookMySeat',
-            body='Your booking has been confirmed.',
-            from_email = settings.DEFAULT_FROM_EMAIL,
-            to=[user.email]
+        headers = {
+    "api-key": settings.BREVO_API_KEY,
+    "Content-Type": "application/json",
+    "Accept": "application/json"
+}
+
+        payload = {
+            "sender": {
+                "name": "BookMySeat",
+                "email": settings.DEFAULT_FROM_EMAIL
+            },
+            "to": [
+                {
+                    "email": user.email
+                }
+            ],
+            "subject": "Booking Confirmation - BookMySeat",
+            "htmlContent": html_content
+        }
+        print("BREVO API KEY EXISTS =", bool(settings.BREVO_API_KEY))
+        print("SENDER =", settings.DEFAULT_FROM_EMAIL)
+        print("RECIPIENT =", user.email)
+
+        response = requests.post(
+            "https://api.brevo.com/v3/smtp/email",
+            json=payload,
+            headers=headers,
+            timeout=30
         )
 
-        email.attach_alternative(
-            html_content,
-            "text/html"
-        )
+        print("BREVO STATUS =", response.status_code)
+        print("BREVO RESPONSE =", response.text)
 
-        try:
-            print("VERSION TEST 12345")
-            print("ABOUT TO SEND EMAIL")
-
-            result=email.send(fail_silently=False)
-            print("EMAIL SEND RESULT =", result)
-            print("EMAIL SENT SUCCESSFULLY")
-
-        except Exception as e:
-            print("EMAIL SEND FAILED:", repr(e))
+        response.raise_for_status()
 
     except Exception as e:
-        print("BOOKING EMAIL FUNCTION ERROR:", repr(e))
+        print("EMAIL SEND FAILED:", repr(e))
 
 def movie_list(request):
 
