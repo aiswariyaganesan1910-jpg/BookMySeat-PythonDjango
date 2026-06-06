@@ -136,6 +136,8 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
+
+
 EMAIL_HOST = 'smtp-relay.brevo.com'
 
 EMAIL_PORT = 587
@@ -157,11 +159,7 @@ BREVO_API_KEY = os.getenv(
 )
 DEFAULT_FROM_EMAIL = "bookmyseat.project@gmail.com"
 EMAIL_TIMEOUT = 60
-print("EMAIL_HOST =", EMAIL_HOST)
-print("EMAIL_PORT =", EMAIL_PORT)
-print("EMAIL_HOST_USER =", EMAIL_HOST_USER)
-print("EMAIL_PASSWORD_LENGTH =", len(EMAIL_HOST_PASSWORD))
-print("EMAIL SETTINGS LOADED")
+
 
 
 RAZORPAY_KEY_ID = os.getenv(
